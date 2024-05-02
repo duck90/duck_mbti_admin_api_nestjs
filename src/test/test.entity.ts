@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { QuestionEntity } from 'src/question/question.entity';
+import { TestResultEntity } from 'src/testResult/test-result.entity';
 
 @Entity({ name: 'test' })
 export class TestEntity {
@@ -52,4 +53,10 @@ export class TestEntity {
     cascade: true,
   })
   questions: QuestionEntity[];
+
+  @OneToMany(() => TestResultEntity, (result) => result.test, {
+    onDelete: 'CASCADE',
+    cascade: true,
+  })
+  results: TestResultEntity[];
 }

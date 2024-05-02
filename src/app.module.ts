@@ -8,7 +8,7 @@ import { AppService } from './app.service';
 import { LoggerMiddleware } from './logger/logger.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { TestModule } from './test/test.module';
-import { TestResultModule } from './test-result/test-result.module';
+import { TestResultModule } from './testResult/test-result.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/guard/auth.guard';

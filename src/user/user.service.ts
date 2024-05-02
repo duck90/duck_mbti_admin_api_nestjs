@@ -17,6 +17,16 @@ export class UserService {
     return await this.userRepository.save(userEntity);
   }
 
+  async findAll() {
+    const users = await this.userRepository.find();
+
+    return users.map((item) => {
+      delete item.password;
+
+      return item;
+    });
+  }
+
   async findById(id: number) {
     return await this.userRepository.findOne({
       where: {

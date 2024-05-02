@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { TestEntity } from './test.entity';
 import { QuestionEntity } from 'src/question/question.entity';
 import { TestDTO } from './test.dto';
+import { TestResultEntity } from 'src/testResult/test-result.entity';
 
 @Injectable()
 export class TestService {
@@ -13,10 +14,14 @@ export class TestService {
     private testsRepository: Repository<TestEntity>,
     @InjectRepository(QuestionEntity)
     private questionsRepository: Repository<QuestionEntity>,
+    @InjectRepository(TestResultEntity)
+    private testResultsRepository: Repository<TestResultEntity>,
   ) {}
 
-  async findAll(): Promise<TestEntity[]> {
-    return this.testsRepository.find({ order: { order_no: 'ASC' } });
+  async findAll(): Promise<any[]> {
+    return await this.testsRepository.find({
+      relations: ['results'],
+    });
   }
 
   async create(test: TestDTO.CreateTestDto): Promise<TestEntity> {

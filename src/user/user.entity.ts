@@ -11,7 +11,7 @@ import {
 import * as bcrypt from 'bcrypt';
 import { Role } from '../auth/auth.dto';
 
-@Entity({ name: 'user' })
+@Entity({ name: 'admin' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;

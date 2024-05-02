@@ -8,12 +8,17 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { TestEntity } from 'src/test/test.entity';
 
-@Entity({ name: 'test-result' })
+@Entity({ name: 'test_result' })
 export class TestResultEntity {
   @ApiProperty({ description: 'Mbti Test Result PK' })
   @PrimaryGeneratedColumn()
   id: number;
+
+  @ManyToOne(() => TestEntity, (test) => test.results)
+  @JoinColumn({ name: 'subject_id' })
+  test: TestEntity;
 
   @Column()
   subject_id: number;
@@ -22,9 +27,9 @@ export class TestResultEntity {
   @Column()
   mbti: string;
 
-  @ApiProperty({ description: 'MBTI img 경로' })
+  @ApiProperty({ description: 'MBTI img 파일 명' })
   @Column()
-  url: string;
+  filename: string;
 
   @CreateDateColumn()
   @ApiProperty({ description: '생성일시' })
