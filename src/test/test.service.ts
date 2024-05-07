@@ -21,6 +21,7 @@ export class TestService {
   async findAll(): Promise<any[]> {
     return await this.testsRepository.find({
       relations: ['results'],
+      order: { order_no: 'ASC' },
     });
   }
 
