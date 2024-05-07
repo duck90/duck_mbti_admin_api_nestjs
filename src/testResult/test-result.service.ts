@@ -38,13 +38,14 @@ export class TestResultService {
   }
 
   async saveOneResult(data: CreateResultDto) {
-    let uploadResult = await this.awsService.imageBase64UploadToS3(
+    const uploadResult = await this.awsService.imageBase64UploadToS3(
       `${Date.now()}_${data.subject_id}_${data.type}.png`,
       data.base64,
     );
-
-    uploadResult = uploadResult.replace(process.env.AWS_S3_BUCKET_URL, '');
-
+    const fileName = uploadResult.url.replace(
+      process.env.AWS_S3_BUCKET_URL,
+      '',
+    );
     const oldData = await this.testResultRepository.findOne({
       where: { subject_id: Number(data.subject_id), mbti: data.type },
     });
@@ -52,13 +53,17 @@ export class TestResultService {
     if (!!oldData) {
       return await this.testResultRepository.save({
         ...oldData,
-        filename: uploadResult,
+        filename: fileName,
+        width: uploadResult.width,
+        height: uploadResult.height,
       });
     } else {
       return await this.testResultRepository.save({
         subject_id: Number(data.subject_id),
         mbti: data.type,
-        filename: uploadResult,
+        filename: fileName,
+        width: uploadResult.width,
+        height: uploadResult.height,
       });
     }
   }
@@ -69,12 +74,14 @@ export class TestResultService {
 
     try {
       for (const mbti of data) {
-        let uploadResult = await this.awsService.imageBase64UploadToS3(
+        const uploadResult = await this.awsService.imageBase64UploadToS3(
           `${Date.now()}_${mbti.subject_id}_${mbti.type}.png`,
           mbti.base64,
         );
-
-        uploadResult = uploadResult.replace(process.env.AWS_S3_BUCKET_URL, '');
+        const fileName = uploadResult.url.replace(
+          process.env.AWS_S3_BUCKET_URL,
+          '',
+        );
 
         const oldData = await this.testResultRepository.findOne({
           where: { subject_id: Number(mbti.subject_id), mbti: mbti.type },
@@ -83,7 +90,9 @@ export class TestResultService {
         if (!!oldData) {
           result = await this.testResultRepository.save({
             ...oldData,
-            filename: uploadResult,
+            filename: fileName,
+            width: uploadResult.width,
+            height: uploadResult.height,
           });
 
           results.push(result);
@@ -91,7 +100,9 @@ export class TestResultService {
           result = await this.testResultRepository.save({
             subject_id: Number(mbti.subject_id),
             mbti: mbti.type,
-            filename: uploadResult,
+            filename: fileName,
+            width: uploadResult.width,
+            height: uploadResult.height,
           });
 
           results.push(result);

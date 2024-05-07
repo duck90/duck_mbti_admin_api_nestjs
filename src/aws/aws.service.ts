@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import sizeOf from 'image-size';
 
 @Injectable()
 export class AwsService {
@@ -38,12 +39,13 @@ export class AwsService {
 
   async imageBase64UploadToS3(fileName: string, base64Image: string) {
     const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, '');
-    const buffer = Buffer.from(base64Data, 'base64');
+    const image = Buffer.from(base64Data, 'base64');
+    const dimesions = sizeOf(image);
 
     const command = new PutObjectCommand({
       Bucket: this.configService.get('AWS_S3_BUCKET_NAME'),
       Key: fileName,
-      Body: buffer,
+      Body: image,
       ACL: 'public-read', // 파일 접근 권한
       ContentType: `image/png`, // 파일 타입
     });
@@ -51,6 +53,10 @@ export class AwsService {
     await this.s3Client.send(command);
 
     // 업로드된 이미지의 URL을 반환합니다.
-    return `https://s3.${process.env.AWS_REGION}.amazonaws.com/${process.env.AWS_S3_BUCKET_NAME}/${fileName}`;
+    return {
+      url: `https://s3.${process.env.AWS_REGION}.amazonaws.com/${process.env.AWS_S3_BUCKET_NAME}/${fileName}`,
+      width: dimesions.width,
+      height: dimesions.height,
+    };
   }
 }

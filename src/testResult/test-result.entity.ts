@@ -31,6 +31,12 @@ export class TestResultEntity {
   @Column()
   filename: string;
 
+  @Column()
+  width: number;
+
+  @Column()
+  height: number;
+
   @CreateDateColumn()
   @ApiProperty({ description: '생성일시' })
   createdAt: Date;

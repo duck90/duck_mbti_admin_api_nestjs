@@ -9,4 +9,10 @@ export class CreateResultDto {
 
   @IsString()
   base64: string;
+
+  @IsNumber()
+  width: number;
+
+  @IsNumber()
+  height: number;
 }
