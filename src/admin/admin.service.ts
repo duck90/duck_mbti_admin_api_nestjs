@@ -9,16 +9,16 @@ import { AuthDTO } from '../auth/auth.dto';
 export class AdminService {
   constructor(
     @InjectRepository(AdminEntity)
-    private userRepository: Repository<AdminEntity>,
+    private adminRepository: Repository<AdminEntity>,
   ) {}
 
   async create(authDTO: AuthDTO.SignUp) {
-    const userEntity = await this.userRepository.create(authDTO);
-    return await this.userRepository.save(userEntity);
+    const userEntity = await this.adminRepository.create(authDTO);
+    return await this.adminRepository.save(userEntity);
   }
 
   async findAll() {
-    const users = await this.userRepository.find();
+    const users = await this.adminRepository.find();
 
     return users.map((item) => {
       delete item.password;
@@ -28,7 +28,7 @@ export class AdminService {
   }
 
   async findById(id: number) {
-    return await this.userRepository.findOne({
+    return await this.adminRepository.findOne({
       where: {
         id,
       },
@@ -36,7 +36,7 @@ export class AdminService {
   }
 
   async findByUsername(username: string) {
-    return await this.userRepository.findOne({
+    return await this.adminRepository.findOne({
       where: {
         username,
       },

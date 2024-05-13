@@ -11,4 +11,4 @@ import { AdminEntity } from './admin.entity';
   controllers: [AdminController],
   providers: [AdminService],
 })
-export class UserModule {}
+export class AdminModule {}

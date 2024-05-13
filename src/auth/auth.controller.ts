@@ -17,7 +17,7 @@ import { AdminService } from 'src/admin/admin.service';
 @Controller('/admin')
 export class AuthController {
   constructor(
-    private readonly userService: AdminService,
+    private readonly adminService: AdminService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -25,7 +25,7 @@ export class AuthController {
   async signin(@Body() authDTO: AuthDTO.SignIn) {
     const { username, password } = authDTO;
 
-    const user = await this.userService.findByUsername(username);
+    const user = await this.adminService.findByUsername(username);
     if (!user) {
       throw new UnauthorizedException('존재하지 않는 아이디 입니다.');
     }
