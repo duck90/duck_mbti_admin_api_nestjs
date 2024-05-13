@@ -1,14 +1,14 @@
 import { Body, ConflictException, Controller, Get, Post } from '@nestjs/common';
 
-import { UserService } from './user.service';
+import { AdminService } from './admin.service';
 import { AuthDTO } from 'src/auth/auth.dto';
-import { IUser } from './interface';
+import { IAdmin } from './interface';
 @Controller('admin')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+export class AdminController {
+  constructor(private readonly userService: AdminService) {}
 
   @Get()
-  async findAll(): Promise<IUser[]> {
+  async findAll(): Promise<IAdmin[]> {
     return this.userService.findAll();
   }
 

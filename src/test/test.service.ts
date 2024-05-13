@@ -14,8 +14,6 @@ export class TestService {
     private testsRepository: Repository<TestEntity>,
     @InjectRepository(QuestionEntity)
     private questionsRepository: Repository<QuestionEntity>,
-    @InjectRepository(TestResultEntity)
-    private testResultsRepository: Repository<TestResultEntity>,
   ) {}
 
   async findAll(): Promise<any[]> {

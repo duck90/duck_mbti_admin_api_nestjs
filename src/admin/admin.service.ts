@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { UserEntity } from 'src/user/user.entity';
+import { AdminEntity } from 'src/admin/admin.entity';
 import { AuthDTO } from '../auth/auth.dto';
 
 @Injectable()
-export class UserService {
+export class AdminService {
   constructor(
-    @InjectRepository(UserEntity)
-    private userRepository: Repository<UserEntity>,
+    @InjectRepository(AdminEntity)
+    private userRepository: Repository<AdminEntity>,
   ) {}
 
   async create(authDTO: AuthDTO.SignUp) {

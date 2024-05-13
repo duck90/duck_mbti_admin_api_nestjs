@@ -12,12 +12,12 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
 import { AuthDTO } from './auth.dto';
-import { UserService } from 'src/user/user.service';
+import { AdminService } from 'src/admin/admin.service';
 
 @Controller('/admin')
 export class AuthController {
   constructor(
-    private readonly userService: UserService,
+    private readonly userService: AdminService,
     private readonly jwtService: JwtService,
   ) {}
 

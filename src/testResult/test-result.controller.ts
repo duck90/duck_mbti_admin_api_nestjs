@@ -39,7 +39,7 @@ export class TestResultController {
 
   @Get(':id')
   async findAll(@Param('id') id: string): Promise<TestResultEntity[]> {
-    return this.testResultService.findAll(Number(id));
+    return this.testResultService.findOne(Number(id));
   }
 
   @Post()

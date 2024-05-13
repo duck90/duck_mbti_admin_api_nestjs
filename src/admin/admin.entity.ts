@@ -12,7 +12,7 @@ import * as bcrypt from 'bcrypt';
 import { Role } from '../auth/auth.dto';
 
 @Entity({ name: 'admin' })
-export class UserEntity {
+export class AdminEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

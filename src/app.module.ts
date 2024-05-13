@@ -9,7 +9,7 @@ import { LoggerMiddleware } from './logger/logger.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { TestModule } from './test/test.module';
 import { TestResultModule } from './testResult/test-result.module';
-import { UserModule } from './user/user.module';
+import { UserModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/guard/auth.guard';
 import { RolesGuard } from './auth/guard/roles.guard';

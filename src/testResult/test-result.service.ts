@@ -31,7 +31,12 @@ export class TestResultService {
     return { imagefilename };
   }
 
-  async findAll(subject_id: number) {
+  async findOne(subject_id: number) {
+    console.log(
+      this.testResultRepository.find({
+        where: { subject_id },
+      }),
+    );
     return this.testResultRepository.find({
       where: { subject_id },
     });
