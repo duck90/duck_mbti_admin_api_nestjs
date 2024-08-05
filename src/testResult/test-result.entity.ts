@@ -39,9 +39,9 @@ export class TestResultEntity {
 
   @CreateDateColumn()
   @ApiProperty({ description: '생성일시' })
-  createdAt: Date;
+  created_at: Date;
 
   @UpdateDateColumn()
   @ApiProperty({ description: '수정일시' })
-  updatedAt: Date;
+  updated_at: Date;
 }

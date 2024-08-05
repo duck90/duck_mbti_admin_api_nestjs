@@ -56,5 +56,5 @@ export class QuestionEntity {
 
   @CreateDateColumn()
   @ApiProperty({ description: '생성일시' })
-  createdAt: Date;
+  created_at: Date;
 }

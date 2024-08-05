@@ -16,7 +16,7 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   @IsEmail()
   email: string;
 
@@ -27,6 +27,15 @@ export class UserEntity {
   @Column()
   nickname: string;
 
+  @Column({ nullable: true })
+  image_url?: string;
+
+  @Column({ nullable: true })
+  access_token?: string;
+
+  @Column({ nullable: true })
+  refresh_token?: string;
+
   @CreateDateColumn()
   created_at: Date;
 
@@ -34,7 +43,7 @@ export class UserEntity {
   updated_at: Date;
 
   @DeleteDateColumn()
-  deleted_at: Date;
+  deleted_at?: Date;
 
   @BeforeInsert()
   private beforeInsert() {
